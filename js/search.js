@@ -299,11 +299,12 @@ let provinces = [
  let showTxt1 = document.getElementById('showTxt1');
  let showTxt2 = document.getElementById('showTxt2');
  let ul = document.getElementById('ul');
- let btn = document.getElementById('btn');
+ let btn1 = document.getElementById('btn-search');
+ let btn2 = document.getElementById('btn-show');
  let card = document.getElementById('card');
      let output = '';
      let num = 0;
-     btn.onclick=()=>{
+     btn1.onclick=()=>{
          provinces.forEach(e=>{
              if(search.value == e.province){
                  card.className="card";
@@ -321,3 +322,33 @@ let provinces = [
              }
          })
      }
+     btn2.onclick = () => {
+        card.className = "container";
+        card.innerHTML = ""; // Clear previous content
+    
+        provinces.forEach(e => {
+            let provinceCard = `
+                <div class="card mb-3">
+                    <div class="row g-0">
+                        <div class="col-md-4">
+                            <img src="${e.image}" class="img-fluid rounded-start w-100 h-100" style="object-fit: cover;" alt="${e.province}">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold">${e.province}</h5>
+                                <p class="card-text">There are ${e.district.length} districts:</p>
+                                <ul>
+                                    ${e.district.map(d => `<li>${d}</li>`).join('')}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            card.innerHTML += provinceCard;
+        });
+    
+        showImg.src = ""; // Remove previous image
+        showTxt1.innerHTML = "All Provinces";
+        showTxt2.innerHTML = "";
+    };
